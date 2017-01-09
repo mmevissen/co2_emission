@@ -85,9 +85,10 @@ public class Lane {
 
 		for (Cell cell : cells) {
 			if (cell.getVehicle() != null) {
-				s += " " + cell.getVehicle().getId() + " ";
+				s += " " + cell.getVehicle().getId() + "|" + (Math.round(cell.getCo2Emission() * 1000.) /1000.) + "|" + cell.getVehicle().getCurrentVelocity() ;
 			} else {
-				s += " - ";
+				// s += " " + "-" + " ";
+				s += " " + (Math.round(cell.getCo2Emission() * 1000.) /1000.) + " ";
 			}
 		}
 		return s;

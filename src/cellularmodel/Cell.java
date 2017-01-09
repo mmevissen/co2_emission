@@ -3,65 +3,76 @@ package cellularmodel;
 import agents.Vehicle;
 
 public class Cell {
-	
-	
-	// parameter
-	public int id;
-	
-	private double size = Constants.cellSize;	
-	private Vehicle vehicle;
+    // parameter
+    public int id;
 
-	private Cell nextCell;
-	private Cell previousCell;
-	
-	private Lane lane;
-	
+    private double size = Constants.cellSize;
 
+    private Lane lane;
 
-	protected double co2Emission = 0;
-	
+    private Vehicle vehicle;
 
-	// constructor
-	public Cell(int id, Lane lane) {
-		super();
-		this.id = id;
-		this.lane = lane;
-	}
+    private Cell nextCell;
+    private Cell previousCell;
 
-	// getter
-	public Lane getLane() {
-		return lane;
-	}
-	
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
+    private double co2Emission;
 
-	public Cell getNextCell() {
-		return nextCell;
-	}
+    // constructor
+    public Cell(int id, Lane lane) {
+        super();
+        this.id = id;
+        this.lane = lane;
+        co2Emission = 0.;
+    }
 
-	public Cell getPreviousCell() {
-		return previousCell;
-	}
+    // getter
+    public Lane getLane() {
+        return lane;
+    }
 
-	// setter
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
-	}
-	public void setNextCell(Cell nextCell) {
-		this.nextCell = nextCell;
-	}
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
 
-	public void setPreviousCell(Cell previousCell) {
-		this.previousCell = previousCell;
-	}
+    public Cell getNextCell() {
+        return nextCell;
+    }
 
-	// methods
-	protected void flip() {
-		Cell temp = nextCell;
-		nextCell = previousCell;
-		previousCell = temp;
-	}
+    public Cell getPreviousCell() {
+        return previousCell;
+    }
+
+    public double getCo2Emission() {
+        return this.co2Emission;
+    }
+
+    public double getSize() {
+        return size;
+    }
+
+    // setter
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    public void setNextCell(Cell nextCell) {
+        this.nextCell = nextCell;
+    }
+
+    public void setPreviousCell(Cell previousCell) {
+        this.previousCell = previousCell;
+    }
+
+    public void increaseCo2Emission(double consumptionPerCell) {
+        this.co2Emission += consumptionPerCell;
+    }
+
+    // methods
+    protected void flip() {
+        Cell temp = nextCell;
+        nextCell = previousCell;
+        previousCell = temp;
+    }
+
 
 }

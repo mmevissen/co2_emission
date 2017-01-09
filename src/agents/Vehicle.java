@@ -1,7 +1,6 @@
 package agents;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import cellularmodel.Cell;
 import cellularmodel.Edge;
@@ -11,263 +10,286 @@ import simulation.Timer;
 
 public class Vehicle implements Agent {
 
-	// parameter:
-	// * == constant
+    //////////// parameters ////////////
+    private boolean expired = false;
 
-	private boolean expired = false;
+    private final FuelType fuelType;
+    private int id;
 
-	private int id;
+    /**
+     * velocity: number of cells the car is currently moving forward
+     */
+    private int velocity;
 
-	/**
-	 * fuel type (gasoline, diesel, lpg-gas) *
-	 */
-	private FuelType fuelType;
+    /**
+     * the maximum number of cells that a car can move forward
+     */
+    private int maxVelocity;
 
-	/**
-	 * size [int]: Number of raster cells *
-	 */
-	private int size;
+    /**
+     * cell, where the care is currently located
+     */
+    private Cell currentCell;
 
-	/**
-	 * number of people [int (1..n)] *
-	 */
-	private int numberOfPeople;
+    /**
+     * randomly calculated edge where the car will continue its journey. <br/>
+     * only used at junction nodes
+     */
+    private Edge nextEdge;
 
-	/**
-	 * weight empty [kg] *
-	 */
-	private double emptyWeight;
+    // ********** not yet used **********
+    /**
+     * size [int]: Number of raster cells
+     */
+    // private int size;
 
-	/**
-	 * weight total [kg]
-	 */
-	private double totalWeight;
+    /**
+     * number of people [int (1..n)]
+     */
+    // private int numberOfPeople;
 
-	/**
-	 * TODO: average consumption <-- Formeln random
-	 * 
-	 */
-	private double avgConsumption;
+    /**
+     * weight empty [kg] *
+     */
+    // private double emptyWeight;
 
-	/**
-	 * driving direction
-	 */
-	private Direction drivingDirection;
+    /**
+     * weight total [kg]
+     */
+    //  private double totalWeight;
 
-	/**
-	 * next driving direction
-	 */
-	private Direction nextDrivingDirection;
+    // **********************************
 
-	/**
-	 * 
-	 */
-	private Cell currentCell;
 
-	private Edge nextEdge;
+    //////////// constructors ////////////
+    public Vehicle(int id, Cell currentCell) {
+        super();
+        this.id = id;
+        this.velocity = 0;
+        this.maxVelocity = 5;
+        this.fuelType = FuelType.Gasoline;
 
-	// velocity [m/s]
-	private int velocity;
+        this.currentCell = currentCell;
+        this.currentCell.setVehicle(this);
+        this.currentCell.increaseCo2Emission(getConsumptionPerCell());
+    }
 
-	private int maxVelocity;
+/*    public Vehicle(int id, Cell currentCell, int velocity) {
+        super();
+        this.id = id;
+        this.velocity = velocity;
+        this.maxVelocity = 5;
+        this.currentCell = currentCell;
+        currentCell.setVehicle(this);
 
-	// acceleration [m/s^2]
+        this.fuelType = FuelType.Gasoline;
+    }*/
 
-	// constructor
-	public Vehicle(int id, Cell currentCell) {
-		super();
-		this.id = id;
-		this.velocity = 0;
-		this.maxVelocity = 5;
-		this.currentCell = currentCell;
-		currentCell.setVehicle(this);
-	}
+    //////////// methods ////////////
 
-	public Vehicle(int id, Cell currentCell, int velocity) {
-		super();
-		this.id = id;
-		this.velocity = velocity;
-		this.maxVelocity = 5;
-		this.currentCell = currentCell;
-		currentCell.setVehicle(this);
-	}
 
-	// methods
-	@Override
-	public boolean update() {
-		if (expired)
-			return false;
+    //////////// getter
+    //////////// setter
 
-		moveForward(this.velocity);
-		return true;
-	}
+    @Override
+    public boolean update() {
+        if (expired)
+            return false;
 
-	@Override
-	public boolean calculate() {
-		try {
-			accelerate();
-			// System.out.println("velocityAcc: " + this.velocity);
-			// System.out.println(this.getId() + " " +
-			// brake(distanceToNextVehicle()));
-			brake(distanceToNextVehicle());
-			// System.out.println("velocityBrake: " + this.velocity);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
+        moveForward(this.velocity);
+        return true;
+    }
 
-	/**
-	 * 
-	 */
-	private void accelerate() {
-		if (this.velocity < this.maxVelocity) {
-			this.velocity++;
-		}
-	}
+    @Override
+    public boolean calculate() {
+        try {
+//            manageSpeed(distanceToNextVehicle());
 
-	/**
-	 * 
-	 */
-	private boolean brake(int distToNextVehicle) {
-		if (distToNextVehicle < this.velocity) {
-			this.velocity = distToNextVehicle;
-			return true;
-		}
-		return false;
-	}
+            accelerate();
+            brake(distanceToNextVehicle());
 
-	/**
-	 * cell distance to next vehicle (if 1 is returned, then there is a vehicle
-	 * directly on the next cell)
-	 */
-	private int distanceToNextVehicle() {
-		int i = 0;
-		Cell nextCell = this.currentCell.getNextCell();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
-		for (; i < velocity; i++) {
-			// System.out.println(this.currentCell.getLane().getEndNode().getClass());
+    private double getConsumptionPerCell() {
+        double consumption = Fuel.consumption.get(this.velocity);
+        double cellSize = this.currentCell.getSize();
+        double co2PerL = Fuel.co2PerL.get(this.fuelType);
 
-			if (nextCell != null) {
-				if (nextCell.getVehicle() != null) {
-					break;
-				}
-				nextCell = nextCell.getNextCell();
+        // consumption [l/100km]
+        return (consumption / 100000) * cellSize * (co2PerL / 1);
+    }
 
-			} else if (this.currentCell.getLane().getEndNode().getClass() == TrafficLight.class) {
+    /**
+     *
+     */
+    /*private void manageSpeed(int distToNextVehicle) {
+        if (this.velocity < this.maxVelocity &&
+                this.velocity + 1 <= distToNextVehicle) {
+            this.velocity++;
+        }
+    }*/
 
-				if (this.currentCell.getLane().getEdge() == ((TrafficLight) this.currentCell.getLane().getEndNode())
-						.getGoEdge()) {
-					calculateNextEdge();
+    private void accelerate() {
+        if (this.velocity < this.maxVelocity) {
+            this.velocity++;
+        }
+    }
 
-					System.out.println("next Edge: " + nextEdge.getName());
-					nextCell = this.nextEdge.getLanes().get(1).getHead();
+    private boolean brake(int distToNextVehicle) {
+        if (distToNextVehicle < this.velocity) {
+            this.velocity = distToNextVehicle;
+            return true;
+        }
+        return false;
+    }
 
-					if (nextCell.getVehicle() != null) {
-						break;
-					}
-					continue;
-				}
-			} else if (this.currentCell.getLane().getEndNode().getClass() == Node.class) {
-				this.expire();
-			}
-		}
-		return i;
+    /**
+     * cell distance to next vehicle (if 1 is returned, then there is a vehicle
+     * directly on the next cell)
+     */
+    private int distanceToNextVehicle() {
+        int i = 0;
+        Cell nextCell = this.currentCell.getNextCell();
 
-		// return nextCell(this.currentCell) - 1;
+        for (; i < velocity; i++) {
 
-	}
+            if (nextCell != null) {
+                if (nextCell.getVehicle() != null) {
+                    break;
+                }
+                nextCell = nextCell.getNextCell();
 
-	private void expire() {
-		if (!Timer.getExpiredAgents().contains(this)) {
-			System.out.println("expire: " + this.id);
-			this.currentCell.setVehicle(null);
+            } else if (this.currentCell.getLane().getEndNode().getClass() == TrafficLight.class) {
 
-			Timer.getExpiredAgents().add(this);
-		}
-		this.expired = true;
-	}
+                if (this.currentCell.getLane().getEdge() == ((TrafficLight) this.currentCell.getLane().getEndNode()).getGoEdge()) {
+                    calculateNextEdge();
 
-	private int nextCell(Cell cell) {
-		int i = 1;
-		try {
-			Cell nextCell = cell.getNextCell();
+                    System.out.println("next Edge: " + nextEdge.getName());
+                    nextCell = this.nextEdge.getLanes().get(1).getHead();
 
-			// System.out.println(String.format("current: %s | next: %s",
-			// cell.id, nextCell.id));
+                    if (nextCell.getVehicle() != null) {
+                        break;
+                    }
+                    continue;
+                }
+            } else if (this.currentCell.getLane().getEndNode().getClass() == Node.class) {
+                this.expire();
+            }
+        }
+        return i;
 
-			if (nextCell != null) {
-				if (nextCell.getVehicle() == null) {
-					i += nextCell(nextCell);
-				}
-			} else if (calculateNextEdge().getEndNode().getClass() == TrafficLight.class) {
-				System.out.println("next Edge: " + nextEdge.getName());
-				nextCell = this.nextEdge.getLanes().get(1).getHead();
-				if (nextCell.getVehicle() == null) {
-					i += nextCell(nextCell);
-				}
-			}
-		} catch (Exception e) {
-			throw e;
-		}
-		return i;
-	}
+        // return nextCell(this.currentCell) - 1;
 
-	// TODO repair
-	private void moveForward(int i) {
-		Cell nextCell;
-		for (int s = 0; s < i; s++) {
-			nextCell = this.currentCell.getNextCell();
-			if (nextCell != null) {
-				this.currentCell.setVehicle(null);
-				this.currentCell = nextCell;
-				nextCell.setVehicle(this);
-			} else {
-				if (this.nextEdge != null) {
-					Cell newCell = this.nextEdge.getLanes().get(1).getHead();
+    }
 
-					this.currentCell.setVehicle(null);
-					this.currentCell = newCell;
-					newCell.setVehicle(this);
-					this.nextEdge = null;
-				}
-			}
-		}
-	}
+    private void expire() {
+        if (!Timer.getExpiredAgents().contains(this)) {
+            System.out.println("expire: " + this.id);
+            this.currentCell.setVehicle(null);
 
-	private Edge calculateNextEdge() {
-		try {
-			Edge edge = this.currentCell.getLane().getEdge();
-			Node node = edge.getEndNode();
+            Timer.getExpiredAgents().add(this);
+        }
+        this.expired = true;
+    }
 
-			if (node.getClass() == TrafficLight.class) {
-				List<Edge> edges = new ArrayList<Edge>();
-				edges.addAll(node.getEdges());
-				System.out.println("edges: " + edges.size());
-				edges.remove(edge);
 
-				if (edges.size() == 0) {
-					nextEdge = null;
+    // TODO repair
+    private void moveForward(int i) {
+        Cell nextCell;
+        if (i == 0) {
+            this.currentCell.increaseCo2Emission(this.getConsumptionPerCell());
+            return;
+        }
 
-				} else {
-					this.nextEdge = edges.get((int) (Math.random() * edges.size()));
-				}
-				return this.nextEdge;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        for (int s = 0; s < i; s++) {
+            nextCell = this.currentCell.getNextCell();
+            if (nextCell != null) {
+                updateCell(nextCell);
+            } else {
+                if (this.nextEdge != null) {
+                    Cell newCell = this.nextEdge.getLanes().get(1).getHead();
 
-		return null;
-	}
+                    updateCell(newCell);
 
-	public int getId() {
-		return id;
-	}
+                    this.nextEdge = null;
+                } else {
+                    this.velocity = 0;
+                }
+            }
+        }
+    }
 
-	/**
-	 * random direction at junction
-	 */
+    private void updateCell(Cell newCell) {
+        // this.currentCell.increaseCo2Emission(this.getConsumptionPerCell());
+        this.currentCell.setVehicle(null);
+        this.currentCell = newCell;
 
+        newCell.setVehicle(this);
+        newCell.increaseCo2Emission(this.getConsumptionPerCell());
+    }
+
+    private Edge calculateNextEdge() {
+        try {
+            Edge edge = this.currentCell.getLane().getEdge();
+            Node node = edge.getEndNode();
+
+            if (node.getClass() == TrafficLight.class) {
+                List<Edge> edges = new ArrayList<>();
+                edges.addAll(node.getEdges());
+                System.out.println("edges: " + edges.size());
+                edges.remove(edge);
+
+                if (edges.size() == 0) {
+                    nextEdge = null;
+
+                } else {
+                    this.nextEdge = edges.get((int) (Math.random() * edges.size()));
+                }
+                return this.nextEdge;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getCurrentVelocity() {
+        return velocity;
+    }
+
+
+
+    /*    private int nextCell(Cell cell) {
+        int i = 1;
+        try {
+            Cell nextCell = cell.getNextCell();
+
+            // System.out.println(String.format("current: %s | next: %s",
+            // cell.id, nextCell.id));
+
+            if (nextCell != null) {
+                if (nextCell.getVehicle() == null) {
+                    i += nextCell(nextCell);
+                }
+            } else if (calculateNextEdge().getEndNode().getClass() == TrafficLight.class) {
+                System.out.println("next Edge: " + nextEdge.getName());
+                nextCell = this.nextEdge.getLanes().get(1).getHead();
+                if (nextCell.getVehicle() == null) {
+                    i += nextCell(nextCell);
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return i;
+    }*/
 }

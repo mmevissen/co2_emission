@@ -1,6 +1,7 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javafx.application.Application;
@@ -8,56 +9,71 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Visualizer extends Application {
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-	@Override
-	public void start(Stage primaryStage) {
-		int[] array = { 10, 10, 10, 10, 10 };
+    @Override
+    public void start(Stage primaryStage) {
+        int[] array = {10, 10, 10, 10, 10};
 
-		primaryStage.setTitle("Hello World!");
-		Button btn = new Button();
-		btn.setText("Say 'Hello World'");
-		btn.setOnAction(new EventHandler<ActionEvent>() {
+        FlowPane root = new FlowPane();
 
-			@Override
-			public void handle(ActionEvent event) {
-				System.out.println("Hello World!");
-			}
-		});
+        root.getChildren().addAll(visualizeLane(array));
 
-		FlowPane root = new FlowPane();
-		root.getChildren().add(btn);
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
 
-		root.getChildren().addAll(visualizeLane(array));
-		root.getChildren().addAll(visualizeLane(array));
-		root.getChildren().addAll(visualizeLane(array));
+    public HBox visualizeLane(int[] values) {
+        // List<Rectangle> rectangles = new ArrayList<Rectangle>();
+        HBox hb = new HBox();
+        hb.setSpacing(1);
 
-		primaryStage.setScene(new Scene(root, 300, 250));
-		primaryStage.show();
-	}
+        for (int value : values) {
+            FlowPane fp = new FlowPane();
+            Rectangle rec = new Rectangle(value, value, Color.BLUE);
 
-	public HBox visualizeLane(int[] values) {		
-		List<Rectangle> rectangles = new ArrayList<Rectangle>();
-		
-		for (int value : values) {
-			Rectangle rec = new Rectangle(value, value, Color.BLUE);
-			rectangles.add(rec);
-		}
-		
-		HBox hb = new HBox();
-		hb.getChildren().addAll(rectangles);
-		
-		return hb;
-	}
+            VBox cell = CellVisualisation(10);
+            hb.getChildren().add(cell);
+
+            rec.setHeight(20);
+
+
+            hb.getChildren().add(rec);
+
+            // hb.getChildren().add(fp);
+        }
+
+        return hb;
+    }
+
+    public VBox CellVisualisation(/*Cell cell*/ double value) {
+        VBox vb = new VBox();
+
+        Font font = new Font(12);
+
+        Label lb1 = new Label(String.format("occupied: %s", value/* cell.getVehicle()!= null*/));
+        Label lb2 = new Label(String.format("co2 emission: %s", value/* cell.getCo2Emission()*/));
+
+        lb1.setFont(font);
+        lb2.setFont(font);
+
+        vb.getChildren().add(lb1);
+        vb.getChildren().add(lb2);
+
+        return vb;
+    }
 
 }

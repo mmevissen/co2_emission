@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import agents.Agent;
-import agents.Vehicle;
 import cellularmodel.Edge;
 import cellularmodel.Node;
 import cellularmodel.TrafficLight;
@@ -13,7 +12,7 @@ public class CaseOne {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int numberOfCells = 50;
+		int numberOfCells = 20;
 		
 		Node node1 = new Node();
 		Node node2 = new Node();
@@ -29,7 +28,7 @@ public class CaseOne {
 		edges.add(new Edge("edgeNS", node3, node5, 2, numberOfCells));
 		edges.add(new Edge("edgeEW", node4, node5, 2, numberOfCells));
 		
-		Timer.setSimulationTime(500);
+		Timer.setSimulationTime(50);
 		Timer.edges= edges;
 		
 
@@ -46,9 +45,7 @@ public class CaseOne {
 		System.out.println(node3.toString());
 		System.out.println(node4.toString());
 		System.out.println(node5.toString());
-		
-		System.out.println("Initial state:");
-		Timer.printEdges();
-		Timer.startSimulation();	
+
+		Timer.startSimulation();
 		}
 }

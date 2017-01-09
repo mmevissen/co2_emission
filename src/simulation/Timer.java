@@ -60,7 +60,7 @@ public final class Timer {
 	}
 
 	public static void startSimulation() {
-		VehicleBuilder builder = new VehicleBuilder(.2, getEdges());
+		VehicleBuilder builder = new VehicleBuilder(.2, getEdges(), 1);
 		
 		for(int i = 0; i < endTime; i++){
 			System.out.println("currentTime: " + i);

@@ -1,5 +1,5 @@
 package agents;
 
 public enum FuelType {
-	Diesel, Gasoline, LPG, CNG
+    Diesel, Gasoline, LPG, CNG
 }
