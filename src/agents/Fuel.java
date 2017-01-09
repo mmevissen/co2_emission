@@ -21,6 +21,8 @@ class Fuel {
         put(FuelType.LPG,1630.);
         put(FuelType.CNG,1790.);
     }};
+    
+
 }
 
 
