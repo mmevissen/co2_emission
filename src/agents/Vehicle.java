@@ -133,7 +133,6 @@ public class Vehicle implements Agent {
             this.velocity++;
         }
     }*/
-
     private void accelerate() {
         if (this.velocity < this.maxVelocity) {
             this.velocity++;
@@ -156,7 +155,8 @@ public class Vehicle implements Agent {
         int i = 0;
         Cell nextCell = this.currentCell.getNextCell();
 
-        for (; i < velocity; i++) {
+        while (i < velocity) {
+            // for (; i < velocity; i++) {
 
             if (nextCell != null) {
                 if (nextCell.getVehicle() != null) {
@@ -176,10 +176,14 @@ public class Vehicle implements Agent {
                         break;
                     }
                     continue;
+                } else {
+                    return i;
                 }
             } else if (this.currentCell.getLane().getEndNode().getClass() == Node.class) {
                 this.expire();
             }
+
+            i++;
         }
         return i;
 
