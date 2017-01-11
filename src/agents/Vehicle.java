@@ -71,11 +71,11 @@ public class Vehicle implements Agent {
         this.maxVelocity = 5;
         
         double propability = Math.random();
-        if (propability <= 0.5){    	
+        if (propability <= 0.664){    	
         	this.fuelType = FuelType.Gasoline;
-        } else if (propability > 0.5 && propability <= 0.85){
+        } else if (propability > 0.664 && propability <= 0.987){
         	this.fuelType = FuelType.Diesel;
-        } else if (propability > 0.85 && propability <= 0.95){
+        } else if (propability > 0.987 && propability <= 0.998){
         	this.fuelType = FuelType.LPG;
         } else {
         	this.fuelType = FuelType.CNG;
