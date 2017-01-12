@@ -1,9 +1,10 @@
 package cellularmodel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Edge {
+public class Edge implements Serializable{
 
 	private String name;
 	private Node startNode;

@@ -1,8 +1,7 @@
 package agents;
 
+import java.io.Serializable;
 import java.util.*;
-
-import com.sun.media.sound.PortMixerProvider;
 
 import cellularmodel.Cell;
 import cellularmodel.Edge;
@@ -10,7 +9,7 @@ import cellularmodel.Node;
 import cellularmodel.TrafficLight;
 import simulation.Timer;
 
-public class Vehicle implements Agent {
+public class Vehicle implements Agent, Serializable {
 
     //////////// parameters ////////////
     private boolean expired = false;
@@ -69,18 +68,8 @@ public class Vehicle implements Agent {
         this.id = id;
         this.velocity = 0;
         this.maxVelocity = 5;
-        
-        double propability = Math.random();
-        if (propability <= 0.664){    	
-        	this.fuelType = FuelType.Gasoline;
-        } else if (propability > 0.664 && propability <= 0.987){
-        	this.fuelType = FuelType.Diesel;
-        } else if (propability > 0.987 && propability <= 0.998){
-        	this.fuelType = FuelType.LPG;
-        } else {
-        	this.fuelType = FuelType.CNG;
-        }
-               
+        this.fuelType = FuelType.Gasoline;
+
         this.currentCell = currentCell;
         this.currentCell.setVehicle(this);
         this.currentCell.increaseCo2Emission(getConsumptionPerCell());

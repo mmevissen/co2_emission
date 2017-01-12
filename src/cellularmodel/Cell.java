@@ -2,9 +2,11 @@ package cellularmodel;
 
 import agents.Vehicle;
 
-public class Cell {
+import java.io.Serializable;
+
+public class Cell implements Serializable {
     // parameter
-    public int id;
+    private int id;
 
     private double size = Constants.cellSize;
 
@@ -18,7 +20,7 @@ public class Cell {
     private double co2Emission;
 
     // constructor
-    public Cell(int id, Lane lane) {
+    Cell(int id, Lane lane) {
         super();
         this.id = id;
         this.lane = lane;

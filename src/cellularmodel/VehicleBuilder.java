@@ -15,6 +15,14 @@ public class VehicleBuilder {
     //	private List<Edge> edges;
     private List<Cell> cells;
 
+    public int getMaxNumberOfVehicles() {
+        return maxNumberOfVehicles;
+    }
+
+    public int getNumberOfGeneratedVehicles() {
+        return numberOfGeneratedVehicles;
+    }
+
     private int maxNumberOfVehicles = 0;
     private int numberOfGeneratedVehicles = 0;
 
@@ -31,15 +39,26 @@ public class VehicleBuilder {
         List<Vehicle> vehicles = new ArrayList<>();
         for (Cell cell : cells) {
             if (cell.getVehicle() == null) {
-                if (Math.random() <= propability && numberOfGeneratedVehicles < maxNumberOfVehicles) {
-                    vehicles.add(new Vehicle(i++, cell));
-                    numberOfGeneratedVehicles++;
+                if (Math.random() <= propability) {
+                    if(maxNumberOfVehicles < 0){
+                        GenerareVehicle(vehicles, cell);
+                    }else{
+                        if( numberOfGeneratedVehicles < maxNumberOfVehicles){
+                            GenerareVehicle(vehicles, cell);
+                        }
+                    }
+
+
                 }
             }
-
         }
 
         return vehicles;
+    }
+
+    private void GenerareVehicle(List<Vehicle> vehicles, Cell cell) {
+        vehicles.add(new Vehicle(i++, cell));
+        numberOfGeneratedVehicles++;
     }
 
     private List<Cell> getStartCells(List<Edge> edges) {

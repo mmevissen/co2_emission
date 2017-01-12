@@ -1,10 +1,11 @@
 package cellularmodel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Lane {
+public class Lane implements Serializable{
 
 	private List<Cell> cells = new ArrayList<Cell>();
 
