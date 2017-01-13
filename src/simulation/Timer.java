@@ -19,10 +19,6 @@ public final class Timer {
         return edges;
     }
 
-    public static void setEdges(ArrayList<Edge> edges) {
-        Timer.edges = edges;
-    }
-
     public static List<Agent> getAgents() {
         return agents;
     }
@@ -72,7 +68,7 @@ public final class Timer {
             calculate();
             update();
             agents.addAll(builder.generateVehicle());
-            printEdges();
+            // printEdges();
 
             agents.removeAll(expiredAgents);
             expiredAgents.clear();
@@ -109,5 +105,9 @@ public final class Timer {
             }
         }
         return result;
+    }
+
+    public static void setEnvironment(ArrayList<Edge> environment) {
+        edges = environment;
     }
 }

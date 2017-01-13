@@ -20,7 +20,7 @@ public class Cell implements Serializable {
     private double co2Emission;
 
     // constructor
-    Cell(int id, Lane lane) {
+    public Cell(int id, Lane lane) {
         super();
         this.id = id;
         this.lane = lane;
