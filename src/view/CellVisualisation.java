@@ -15,9 +15,10 @@ import java.text.DecimalFormat;
 
 
 public class CellVisualisation {
+    public static double currentMaxCo2Value;
 
     private Cell cell;
-    private double maxCo2Value;
+
 
     private VBox cellVBox;
     private Label co2Label;
@@ -28,7 +29,6 @@ public class CellVisualisation {
         this.cell = cell;
         initialize();
         update(cell);
-        this.maxCo2Value = maxCo2Value;
     }
 
     private void initialize() {
@@ -61,7 +61,7 @@ public class CellVisualisation {
                         new DecimalFormat("#0.000").format(
                                 (cell.getCo2Emission()))));
 
-        Color col = Color.GREEN.interpolate(Color.RED, cell.getCo2Emission() /  this.maxCo2Value );
+        Color col = Color.GREEN.interpolate(Color.RED, cell.getCo2Emission() / this.currentMaxCo2Value);
         cellVBox.backgroundProperty().setValue(new Background(new BackgroundFill(col, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 }

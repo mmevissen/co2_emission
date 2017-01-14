@@ -23,16 +23,6 @@ public class SimulationStepVisualizer {
     private double maxCo2Value;
 
     SimulationStepVisualizer(List<SimulationStep> simulationSteps) {
-        this.maxCo2Value = 0;
-        for (Edge edge : simulationSteps.get(simulationSteps.size() - 1).getEdges()) {
-            for (Lane lane : edge.getLanes()) {
-                for (Cell cell : lane.getCells()) {
-                    if (this.maxCo2Value < cell.getCo2Emission())
-                        this.maxCo2Value = cell.getCo2Emission();
-                }
-            }
-        }
-
         this.simulationSteps = simulationSteps;
         this.visualisation = visualizeEnvironment(simulationSteps.get(0).getEdges());
     }
@@ -51,6 +41,7 @@ public class SimulationStepVisualizer {
         for (Edge edge : simulationStep.getEdges()) {
             for (Lane lane : edge.getLanes()) {
                 for (Cell cell : lane.getCells()) {
+                    CellVisualisation.currentMaxCo2Value = simulationStep.getCurrentCo2Value();
                     cellVisualisations.get(i).update(cell);
                     i++;
                 }

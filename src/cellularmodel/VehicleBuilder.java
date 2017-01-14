@@ -41,14 +41,12 @@ public class VehicleBuilder {
             if (cell.getVehicle() == null) {
                 if (Math.random() <= propability) {
                     if(maxNumberOfVehicles < 0){
-                        GenerareVehicle(vehicles, cell);
+                        GenerateVehicle(vehicles, cell);
                     }else{
                         if( numberOfGeneratedVehicles < maxNumberOfVehicles){
-                            GenerareVehicle(vehicles, cell);
+                            GenerateVehicle(vehicles, cell);
                         }
                     }
-
-
                 }
             }
         }
@@ -56,7 +54,7 @@ public class VehicleBuilder {
         return vehicles;
     }
 
-    private void GenerareVehicle(List<Vehicle> vehicles, Cell cell) {
+    private void GenerateVehicle(List<Vehicle> vehicles, Cell cell) {
         vehicles.add(new Vehicle(i++, cell));
         numberOfGeneratedVehicles++;
     }

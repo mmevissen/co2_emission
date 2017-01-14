@@ -34,7 +34,7 @@ public class SimulationView extends Application {
         primaryStage.setTitle(title + " - SIMULATING...");
         primaryStage.show();
 
-        Timer.setSimulationTime(100);
+        Timer.setSimulationTime(10800);
         Timer.setEnvironment(BasicEnvironment.getEnvironment(134, 30, 2));
         Timer.setAgents(BasicEnvironment.getEnvironmentAgents());
         this.startTime = System.currentTimeMillis();

@@ -14,7 +14,7 @@ public class Vehicle implements Agent, Serializable {
     //////////// parameters ////////////
     private boolean expired = false;
 
-    private final FuelType fuelType;
+    private FuelType fuelType;
     private int id;
 
     /**
@@ -73,6 +73,18 @@ public class Vehicle implements Agent, Serializable {
         this.currentCell = currentCell;
         this.currentCell.setVehicle(this);
         this.currentCell.increaseCo2Emission(getConsumptionPerCell());
+
+        double propability = Math.random();
+
+        if (propability <= 0.664){
+            this.fuelType = FuelType.Gasoline;
+        } else if (propability > 0.664 && propability <= 0.987){
+            this.fuelType = FuelType.Diesel;
+        } else if (propability > 0.987 && propability <= 0.998){
+            this.fuelType = FuelType.LPG;
+        } else {
+            this.fuelType = FuelType.CNG;
+        }
     }
 
 /*    public Vehicle(int id, Cell currentCell, int velocity) {
