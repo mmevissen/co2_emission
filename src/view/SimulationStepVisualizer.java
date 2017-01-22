@@ -1,5 +1,6 @@
 package view;
 
+import agents.FuelType;
 import cellularmodel.Cell;
 import cellularmodel.Edge;
 import cellularmodel.Lane;
@@ -11,18 +12,18 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SimulationStepVisualizer {
 
     private List<SimulationStep> simulationSteps;
     private VBox visualisation;
-    private List<CellVisualisation> cellVisualisations = new ArrayList<>();
+    private List<CellVisualisation> cellVisualisations;
 
     private double maxCo2Value;
 
     SimulationStepVisualizer(List<SimulationStep> simulationSteps) {
+        this.cellVisualisations = new ArrayList<>();
         this.simulationSteps = simulationSteps;
         this.visualisation = visualizeEnvironment(simulationSteps.get(0).getEdges());
     }
@@ -33,6 +34,32 @@ public class SimulationStepVisualizer {
 
     public void setTimeStep(int timeStep) {
         updateSimulation(this.simulationSteps.get(timeStep));
+    }
+
+    public HashMap<FuelType, Integer> getStepInfo(int timeStep) {
+        return this.simulationSteps.get(timeStep).getNumbersOfVehicles();
+    }
+
+    public HashMap<FuelType, Integer> getGeneralInfo() {
+        HashMap<FuelType, Integer> numberOfVehicles = new HashMap<>();
+
+        for (SimulationStep step : this.simulationSteps) {
+            Iterator iterator = step.getNumbersOfVehicles().entrySet().iterator();
+
+            Map.Entry fuelType;
+            while (iterator.hasNext()){
+                fuelType =  (Map.Entry) iterator.next();
+
+                if (numberOfVehicles.containsKey(fuelType.getKey())) {
+                   int currentNumber = numberOfVehicles.get(fuelType.getKey());
+                    numberOfVehicles.replace((FuelType) fuelType.getKey(), currentNumber + (int) fuelType.getValue());
+                } else {
+                    numberOfVehicles.put((FuelType) fuelType.getKey(), (int) fuelType.getValue());
+                }
+            }
+        }
+
+        return numberOfVehicles;
     }
 
     private void updateSimulation(SimulationStep simulationStep) {
@@ -76,10 +103,15 @@ public class SimulationStepVisualizer {
         for (Cell cell : lane.getCells()) {
             CellVisualisation cellVis = new CellVisualisation(cell, this.maxCo2Value);
             resultHBox.getChildren().add(cellVis.getCellVBox());
-            cellVisualisations.add(cellVis);
+            this.cellVisualisations.add(cellVis);
         }
         resultHBox.setPadding(new Insets(0, 0, 1, 0));
         resultHBox.setSpacing(1);
         return resultHBox;
     }
+
+    public int getNumberOfVehicles(int time) {
+        return simulationSteps.get(time).getCurrentNumberOfVehicles();
+    }
+
 }

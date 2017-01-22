@@ -7,12 +7,13 @@ import cellularmodel.Cell;
 import cellularmodel.Edge;
 import cellularmodel.Node;
 import cellularmodel.TrafficLight;
-import simulation.Timer;
+import simulation.Simulation;
 
 public class Vehicle implements Agent, Serializable {
 
     //////////// parameters ////////////
     private boolean expired = false;
+
 
     private FuelType fuelType;
     private int id;
@@ -63,28 +64,28 @@ public class Vehicle implements Agent, Serializable {
 
 
     //////////// constructors ////////////
-    public Vehicle(int id, Cell currentCell) {
+    public Vehicle(int id, Cell currentCell, FuelType fuelType) {
         super();
         this.id = id;
         this.velocity = 0;
         this.maxVelocity = 5;
-        this.fuelType = FuelType.Gasoline;
+        this.fuelType = fuelType;
 
         this.currentCell = currentCell;
         this.currentCell.setVehicle(this);
         this.currentCell.increaseCo2Emission(getConsumptionPerCell());
 
-        double propability = Math.random();
+        /*double propability = Math.random();
 
-        if (propability <= 0.664){
+        if (propability <= 0.664) {
             this.fuelType = FuelType.Gasoline;
-        } else if (propability > 0.664 && propability <= 0.987){
+        } else if (propability > 0.664 && propability <= 0.987) {
             this.fuelType = FuelType.Diesel;
-        } else if (propability > 0.987 && propability <= 0.998){
+        } else if (propability > 0.987 && propability <= 0.998) {
             this.fuelType = FuelType.LPG;
         } else {
             this.fuelType = FuelType.CNG;
-        }
+        }*/
     }
 
 /*    public Vehicle(int id, Cell currentCell, int velocity) {
@@ -102,6 +103,10 @@ public class Vehicle implements Agent, Serializable {
 
 
     //////////// getter
+    public FuelType getFuelType() {
+        return fuelType;
+    }
+
     //////////// setter
 
     @Override
@@ -114,7 +119,7 @@ public class Vehicle implements Agent, Serializable {
     }
 
     @Override
-    public boolean calculate() {
+    public boolean calculate(long currentTime) {
         try {
 //            manageSpeed(distanceToNextVehicle());
 
@@ -129,12 +134,14 @@ public class Vehicle implements Agent, Serializable {
     }
 
     private double getConsumptionPerCell() {
+        double factor = Fuel.consumptionFactorToGasoline.get(this.fuelType);
         double consumption = Fuel.consumption.get(this.velocity);
         double cellSize = this.currentCell.getSize();
         double co2PerL = Fuel.co2PerL.get(this.fuelType);
 
+
         // consumption [l/100km]
-        return (consumption / 100000) * cellSize * (co2PerL / 1);
+        return (consumption * factor / 100000) * cellSize * (co2PerL / 1);
     }
 
     /**
@@ -205,11 +212,11 @@ public class Vehicle implements Agent, Serializable {
     }
 
     private void expire() {
-        if (!Timer.getExpiredAgents().contains(this)) {
+        if (!Simulation.getExpiredAgents().contains(this)) {
             System.out.println("expire: " + this.id);
             this.currentCell.setVehicle(null);
 
-            Timer.getExpiredAgents().add(this);
+            Simulation.getExpiredAgents().add(this);
         }
         this.expired = true;
     }

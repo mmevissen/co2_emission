@@ -1,11 +1,8 @@
 package cellularmodel;
 
-import java.util.List;
-
 import agents.Agent;
-import simulation.Timer;
 
-public class TrafficLight extends Node implements TrafficRegulation, Agent {
+public class TrafficLight extends Node implements Agent {
 
 	// private Node juctionNode;
 
@@ -30,23 +27,26 @@ public class TrafficLight extends Node implements TrafficRegulation, Agent {
 	// return this.juctionNode.getEdges();
 	// }
 
-	@Override
+    @Override
 	public boolean update() {
 		 System.out.println("TrafficLight index: " + this.goEdge.getName());
 		return false;
 	}
 
-	@Override
-	public boolean calculate() {
-		if (Timer.getCurrentTime() % this.interval == 0) {
-			edgeIndex++;
-			if (edgeIndex >= this.getEdges().size()) {
-				edgeIndex = 0;
+    @Override
+    public boolean calculate(long currentTime) {
+        if (currentTime % this.interval == 0) {
+            edgeIndex++;
+            if (edgeIndex >= this.getEdges().size()) {
+                edgeIndex = 0;
 
-			}
-			this.goEdge = this.getEdges().get(edgeIndex);
-		}
+            }
+            this.goEdge = this.getEdges().get(edgeIndex);
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
+
+
 }
