@@ -1,6 +1,9 @@
-package cellularmodel;
+package model;
 
-import agents.FuelType;
+import model.agents.FuelType;
+import model.environment.Cell;
+import model.environment.Edge;
+import model.environment.Lane;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,7 +1,5 @@
-package view;
+package controller;
 
-import agents.FuelType;
-import cellularmodel.SimulationStep;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -11,8 +9,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import simulation.SimulationParameters;
-import simulation.Simulator;
+import model.SimulationStep;
+import model.agents.FuelType;
+import model.simulation.SimulationParameters;
+import model.simulation.Simulator;
+import view.SimulationStepVisualizer;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -23,11 +24,6 @@ import java.util.List;
 public class Controller {
 
     ///////// controls ///////
-    boolean increase = false;
-    @FXML
-    private Button pauseButton;
-    @FXML
-    private Button startButton;
     @FXML
     private Button nextStepButton;
     @FXML
@@ -76,7 +72,6 @@ public class Controller {
     private Label generalNumberOfVehiclesCNGLabel;
     @FXML
     private Label generalNumberOfVehiclesLPGLabel;
-
     @FXML
     private Label stepNumberOfVehiclesLabel;
     @FXML
@@ -87,7 +82,6 @@ public class Controller {
     private Label stepNumberOfVehiclesLPGLabel;
     @FXML
     private Label stepNumberOfVehiclesCNGLabel;
-
 
     private List<SimulationStep> results;
     private SimulationStepVisualizer simulationStepVisualizer;
@@ -149,22 +143,6 @@ public class Controller {
     }
 
     @FXML
-    public void startButtonClicked(ActionEvent event) throws InterruptedException {
-        /*if(event.getSource().equals(startButton)) this.increase = true;
-        else this.increase = false;
-
-        while (increase) {
-            simulationStepSlider.setValue(simulationStepSlider.getValue() + 1);
-
-            try {
-               Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }*/
-    }
-
-    @FXML
     void onStepButtonPressed(ActionEvent event) {
         if (event.getSource().equals(nextStepButton)) {
             simulationStepSlider.increment();
@@ -194,7 +172,7 @@ public class Controller {
     void simulateButtonPressed(ActionEvent event) {
         SimulationParameters parameters = getSimulationParameters();
         if (parameters == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Error(s) in simulation parameters");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error(s) in model.simulation parameters");
             alert.showAndWait();
         }
 
@@ -219,8 +197,7 @@ public class Controller {
             initializeSimulationResultView(results);
             updateGeneralNumbers(simulator.getGeneralNumbers());
 
-            System.out.println("Simulation Time: " + ((endTime - startTime) / 1000) + " s");
-
+            System.out.println("Simulation Time: " + ((endTime - startTime) / 1000) + " s" + " runs: " + parameters.getSimulationRuns());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -230,7 +207,7 @@ public class Controller {
     void chooseFolderButtonPressed(ActionEvent event) {
         try {
             DirectoryChooser chooser = new DirectoryChooser();
-            chooser.setTitle("Choose Output Folder for the last simulation steps");
+            chooser.setTitle("Choose Output Folder for the last model.simulation steps");
             File file = chooser.showDialog(this.stage.getScene().getWindow());
 
             this.outPath = file.toPath();
@@ -251,8 +228,8 @@ public class Controller {
         this.stage = stage;
     }
 
-    public SimulationParameters getSimulationParameters() {
 
+    public SimulationParameters getSimulationParameters() {
         try {
             return new SimulationParameters(
                     Integer.parseInt(this.simulationRunsTextField.getText()),
@@ -263,13 +240,12 @@ public class Controller {
                     Double.parseDouble(this.vehicleProbabilityTextField.getText()),
                     Double.parseDouble(this.gasolineProbabilityTextField.getText()),
                     Double.parseDouble(this.dieselProbabilityTextField.getText()),
-                    Double.parseDouble(this.cngProbabilityTextField.getText()),
                     Double.parseDouble(this.lpgProbabilityTextField.getText()),
+                    Double.parseDouble(this.cngProbabilityTextField.getText()),
                     this.outPath);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
-
     }
 }

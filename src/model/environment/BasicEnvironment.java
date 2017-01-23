@@ -1,9 +1,7 @@
-package simulation.environment;
+package model.environment;
 
-import agents.Agent;
-import cellularmodel.Edge;
-import cellularmodel.Node;
-import cellularmodel.TrafficLight;
+import model.agents.Agent;
+import model.agents.TrafficLight;
 
 import java.util.ArrayList;
 

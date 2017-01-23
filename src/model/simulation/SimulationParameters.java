@@ -1,10 +1,7 @@
-package simulation;
+package model.simulation;
 
 import java.nio.file.Path;
 
-/**
- * Created by Michael Mevissen on 18.01.2017.
- */
 public class SimulationParameters {
 
     private int simulationRuns;
@@ -81,18 +78,15 @@ public class SimulationParameters {
 
     @Override
     public String toString() {
-
-        return "--- Simulation Parameters: --- " +
-                "\nsimulationRuns: " + simulationRuns +
-                "\nsimulationTime: " + simulationTime +
-                "\ncellNumber: " + cellNumber +
-                "\ntrafficLightInterval: " + trafficLightInterval +
-                "\nprobabilityVehicleCreationGeneral: " + probabilityVehicleCreationGeneral +
-                "\nprobabilityVehicleCreationGasoline: " + probabilityVehicleCreationGasoline +
-                "\nprobabilityVehicleCreationDiesel: " + probabilityVehicleCreationDiesel +
-                "\nprobabilityVehicleCreationLPG: " + probabilityVehicleCreationLPG +
-                "\nprobabilityVehicleCreationCNG: " + probabilityVehicleCreationCNG +
-                "\noutputPath: " + outputPath;
+        return "simulationRuns; " + simulationRuns + ";" + System.lineSeparator() +
+                "simulationTime; " + simulationTime + ";" + System.lineSeparator() +
+                "cellNumber; " + cellNumber + ";" + System.lineSeparator() +
+                "trafficLightInterval; " + trafficLightInterval + ";" + System.lineSeparator() +
+                "probabilityVehicleCreationGeneral; " + probabilityVehicleCreationGeneral + ";" + System.lineSeparator() +
+                "probabilityVehicleCreationGasoline; " + probabilityVehicleCreationGasoline + ";" + System.lineSeparator() +
+                "probabilityVehicleCreationDiesel; " + probabilityVehicleCreationDiesel + ";" + System.lineSeparator() +
+                "probabilityVehicleCreationLPG; " + probabilityVehicleCreationLPG + ";" + System.lineSeparator() +
+                "probabilityVehicleCreationCNG; " + probabilityVehicleCreationCNG + ";" + System.lineSeparator() +
+                "outputPath;" + outputPath + ";";
     }
-
 }

@@ -16,7 +16,7 @@ public class ObjectCloner {
      * @return a copy of any object which implements Serializable
      * @throws IOException
      */
-     public static Object deepClone(Object object) throws IOException {
+    public static Object deepClone(Object object) throws IOException {
         ObjectOutputStream outputStream = null;
         ObjectInputStream inputStream = null;
 

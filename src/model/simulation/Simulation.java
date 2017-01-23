@@ -1,17 +1,17 @@
-package simulation;
+package model.simulation;
+
+import model.SimulationStep;
+import model.VehicleBuilder;
+import model.agents.Agent;
+import model.agents.FuelType;
+import model.agents.Vehicle;
+import model.environment.Edge;
+import tools.ObjectCloner;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import agents.Agent;
-import agents.FuelType;
-import agents.Vehicle;
-import cellularmodel.Edge;
-import cellularmodel.SimulationStep;
-import cellularmodel.VehicleBuilder;
-import tools.ObjectCloner;
 
 public final class Simulation {
     private static long currentTime;
@@ -50,7 +50,7 @@ public final class Simulation {
         builder = new VehicleBuilder(getEdges(), -1, simulationParameters);
 
         for (int i = 0; i < endTime; i++) {
-            System.out.println("currentTime: " + i);
+            //  System.out.println("currentTime: " + i);
 
             calculate();
             update();
@@ -126,7 +126,7 @@ public final class Simulation {
         return expiredAgents;
     }
 
-    public static HashMap<FuelType, Integer> getGeneratedVehicleNumbers(){
+    public static HashMap<FuelType, Integer> getGeneratedVehicleNumbers() {
         return builder.getNumberOfGeneratedVehiclesByFuelType();
     }
 

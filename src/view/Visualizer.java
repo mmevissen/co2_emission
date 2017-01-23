@@ -1,14 +1,8 @@
+/*
 package view;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -59,13 +53,19 @@ public class Visualizer extends Application {
         return hb;
     }
 
-    public VBox CellVisualisation(/*Cell cell*/ double value) {
+    public VBox CellVisualisation(*/
+/*Cell cell*//*
+ double value) {
         VBox vb = new VBox();
 
         Font font = new Font(12);
 
-        Label lb1 = new Label(String.format("occupied: %s", value/* cell.getVehicle()!= null*/));
-        Label lb2 = new Label(String.format("co2 emission: %s", value/* cell.getCo2Emission()*/));
+        Label lb1 = new Label(String.format("occupied: %s", value*/
+/* cell.getVehicle()!= null*//*
+));
+        Label lb2 = new Label(String.format("co2 emission: %s", value*/
+/* cell.getCo2Emission()*//*
+));
 
         lb1.setFont(font);
         lb2.setFont(font);
@@ -76,4 +76,4 @@ public class Visualizer extends Application {
         return vb;
     }
 
-}
+}*/

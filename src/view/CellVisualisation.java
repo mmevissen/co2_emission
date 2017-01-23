@@ -1,7 +1,5 @@
 package view;
 
-import agents.Vehicle;
-import cellularmodel.Cell;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -11,6 +9,8 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import model.agents.Vehicle;
+import model.environment.Cell;
 
 import java.text.DecimalFormat;
 

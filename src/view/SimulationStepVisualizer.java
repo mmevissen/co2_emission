@@ -1,16 +1,15 @@
 package view;
 
-import agents.FuelType;
-import cellularmodel.Cell;
-import cellularmodel.Edge;
-import cellularmodel.Lane;
-import cellularmodel.SimulationStep;
-
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import model.SimulationStep;
+import model.agents.FuelType;
+import model.environment.Cell;
+import model.environment.Edge;
+import model.environment.Lane;
 
 import java.util.*;
 
@@ -22,7 +21,7 @@ public class SimulationStepVisualizer {
 
     private double maxCo2Value;
 
-    SimulationStepVisualizer(List<SimulationStep> simulationSteps) {
+    public SimulationStepVisualizer(List<SimulationStep> simulationSteps) {
         this.cellVisualisations = new ArrayList<>();
         this.simulationSteps = simulationSteps;
         this.visualisation = visualizeEnvironment(simulationSteps.get(0).getEdges());
@@ -47,11 +46,11 @@ public class SimulationStepVisualizer {
             Iterator iterator = step.getNumbersOfVehicles().entrySet().iterator();
 
             Map.Entry fuelType;
-            while (iterator.hasNext()){
-                fuelType =  (Map.Entry) iterator.next();
+            while (iterator.hasNext()) {
+                fuelType = (Map.Entry) iterator.next();
 
                 if (numberOfVehicles.containsKey(fuelType.getKey())) {
-                   int currentNumber = numberOfVehicles.get(fuelType.getKey());
+                    int currentNumber = numberOfVehicles.get(fuelType.getKey());
                     numberOfVehicles.replace((FuelType) fuelType.getKey(), currentNumber + (int) fuelType.getValue());
                 } else {
                     numberOfVehicles.put((FuelType) fuelType.getKey(), (int) fuelType.getValue());
