@@ -5,21 +5,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * a chain of {@link Cell}s which represents a lane of a road
+ */
 public class Lane implements Serializable {
 
-    private List<Cell> cells = new ArrayList<Cell>();
+    private boolean inverted;
 
+    /**
+     * "oriented" list of cells. the head of this list corresponds to the entry of this lane.<br/>
+     * each cell knows its previous and next cell
+     */
+    private List<Cell> cells = new ArrayList<>();
+
+    /**
+     * the edge this lane belongs to
+     */
     private Edge edge;
 
-    private boolean invert;
-
-    public List<Cell> getCells() {
-        return cells;
-    }
-
+    // constructor
     public Lane(int numberOfCells, boolean invert, Edge edge) {
         this.edge = edge;
-        this.invert = invert;
+        this.inverted = invert;
 
         createCells(numberOfCells);
 
@@ -28,55 +35,61 @@ public class Lane implements Serializable {
         }
     }
 
+    // getter
     public Node getStartNode() {
-        if (this.invert) {
-            return edge.getEndNode();
+        if (this.inverted) {
+            return this.edge.getEndNode();
         }
-        return edge.getStartNode();
+        return this.edge.getStartNode();
     }
 
     public Node getEndNode() {
-        if (this.invert) {
-            return edge.getStartNode();
+        if (this.inverted) {
+            return this.edge.getStartNode();
         }
-        return edge.getEndNode();
+        return this.edge.getEndNode();
     }
 
     public Edge getEdge() {
-        return edge;
+        return this.edge;
+    }
+
+    public List<Cell> getCells() {
+        return cells;
     }
 
     public Cell getHead() {
-        return cells.get(0);
+        return this.cells.get(0);
     }
 
     public Cell getTail() {
-        return cells.get(cells.size() - 1);
+        return this.cells.get(this.cells.size() - 1);
     }
 
+    // methods
     private void createCells(int numberOfCells) {
-        if (cells.isEmpty()) {
-            cells.add(new Cell(cells.size(), this));
+        if (this.cells.isEmpty()) {
+            this.cells.add(new Cell(this.cells.size(), this));
         }
 
+        Cell newCell;
         for (int i = 1; i < numberOfCells; i++) {
-            // System.out.println("new Cell: " + i);
-
-            Cell newCell = new Cell(i, this);
-            newCell.setPreviousCell(cells.get(i - 1));
-            cells.add(newCell);
-            cells.get(i - 1).setNextCell(newCell);
+            newCell = new Cell(i, this);
+            newCell.setPreviousCell(this.cells.get(i - 1));
+            this.cells.add(newCell);
+            this.cells.get(i - 1).setNextCell(newCell);
         }
-        // System.out.println("# of cells: " + cells.size());
     }
 
+    /**
+     * reverses the lane and its cells orientation
+     */
     public void reverse() {
         Collections.reverse(this.cells);
-        for (Cell cell : cells) {
+        for (Cell cell : this.cells) {
             if (cell.getClass() == Cell.class) {
-                ((Cell) cell).flip();
+                cell.flip();
             }
-
         }
     }
 
@@ -84,11 +97,10 @@ public class Lane implements Serializable {
     public String toString() {
         String s = "";
 
-        for (Cell cell : cells) {
+        for (Cell cell : this.cells) {
             if (cell.getVehicle() != null) {
                 s += " " + cell.getVehicle().getId() + "|" + (Math.round(cell.getCo2Emission() * 1000.) / 1000.) + "|" + cell.getVehicle().getCurrentVelocity();
             } else {
-                // s += " " + "-" + " ";
                 s += " " + (Math.round(cell.getCo2Emission() * 1000.) / 1000.) + " ";
             }
         }

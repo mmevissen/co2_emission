@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Vehicle implements Agent, Serializable {
 
-    //////////// parameters ////////////
+    //////////// variables ////////////
     private boolean expired = false;
 
     private FuelType fuelType;
@@ -69,10 +69,8 @@ public class Vehicle implements Agent, Serializable {
     @Override
     public boolean calculate(long currentTime) {
         try {
-//            manageSpeed(distanceToNextVehicle());
             accelerate();
             brake(distanceToNextVehicle());
-
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,15 +88,6 @@ public class Vehicle implements Agent, Serializable {
         return (consumption * factor / 100000) * cellSize * (co2PerL / 1);
     }
 
-    /**
-     *
-     */
-    /*private void manageSpeed(int distToNextVehicle) {
-        if (this.velocity < this.maxVelocity &&
-                this.velocity + 1 <= distToNextVehicle) {
-            this.velocity++;
-        }
-    }*/
     private void accelerate() {
         if (this.velocity < this.maxVelocity) {
             this.velocity++;
@@ -159,7 +148,6 @@ public class Vehicle implements Agent, Serializable {
 
     private void expire() {
         if (!Simulation.getExpiredAgents().contains(this)) {
-            // System.out.println("expire: " + this.id);
             this.currentCell.setVehicle(null);
 
             Simulation.getExpiredAgents().add(this);
@@ -168,7 +156,6 @@ public class Vehicle implements Agent, Serializable {
     }
 
 
-    // TODO repair
     private void moveForward(int i) {
         Cell nextCell;
         if (i == 0) {
@@ -195,7 +182,6 @@ public class Vehicle implements Agent, Serializable {
     }
 
     private void updateCell(Cell newCell) {
-        // this.currentCell.increaseCo2Emission(this.getConsumptionPerCell());
         this.currentCell.setVehicle(null);
         this.currentCell = newCell;
 

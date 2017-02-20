@@ -81,7 +81,6 @@ public final class Exporter {
 
         int i = 0;
 
-        // write model.simulation parameters
         try {
             statisticsStringBuilder = new StringBuilder(parameters.toString());
             statisticsFile = Paths.get(outputFolderPath.toString(), "parameters.csv").toFile();

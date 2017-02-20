@@ -20,7 +20,9 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 
-
+/**
+ * JavaFX Controller. Used for GUI connections.
+ */
 public class Controller {
 
     ///////// controls ///////
@@ -61,9 +63,6 @@ public class Controller {
     @FXML
     private TextField lpgProbabilityTextField;
 
-
-    @FXML
-    private Label generalNumberOfVehiclesLabel;
     @FXML
     private Label generalNumberOfVehiclesGasolineLabel;
     @FXML
@@ -72,8 +71,6 @@ public class Controller {
     private Label generalNumberOfVehiclesCNGLabel;
     @FXML
     private Label generalNumberOfVehiclesLPGLabel;
-    @FXML
-    private Label stepNumberOfVehiclesLabel;
     @FXML
     private Label stepNumberOfVehiclesGasolineLabel;
     @FXML
@@ -111,8 +108,6 @@ public class Controller {
     private void updateStepValues() {
         int time = (int) simulationStepSlider.getValue();
 
-        this.stepNumberOfVehiclesLabel.setText(String.valueOf(simulationStepVisualizer.getNumberOfVehicles(time)));
-
         HashMap<FuelType, Integer> numbers = simulationStepVisualizer.getStepInfo((time));
         this.stepNumberOfVehiclesGasolineLabel.setText(String.valueOf(numbers.get(FuelType.Gasoline)));
         this.stepNumberOfVehiclesDieselLabel.setText(String.valueOf(numbers.get(FuelType.Diesel)));
@@ -122,8 +117,6 @@ public class Controller {
 
     private void updateGeneralNumbers(HashMap<FuelType, Integer> numbers) {
         int time = (int) simulationStepSlider.getValue();
-
-        this.generalNumberOfVehiclesLabel.setText("");
 
         this.generalNumberOfVehiclesGasolineLabel.setText(String.valueOf(numbers.get(FuelType.Gasoline)));
         this.generalNumberOfVehiclesDieselLabel.setText(String.valueOf(numbers.get(FuelType.Diesel)));
@@ -187,7 +180,6 @@ public class Controller {
             List<SimulationStep> results = simulator.startSimulation();
 
             /*new Thread(){
-
                 @Override
                 public void run() { }
             }.start();*/

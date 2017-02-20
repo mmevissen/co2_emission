@@ -5,19 +5,35 @@ import model.agents.Vehicle;
 
 import java.io.Serializable;
 
+/**
+ * represents a physical space on which a single car can be placed on
+ */
 public class Cell implements Serializable {
-    // parameter
+
+    // variables
     private int id;
 
+    /**
+     * the physical space (length in meters) of this cell. <br/> all cells have the same size!
+     */
     private double size = Constants.cellSize;
 
-    private Lane lane;
-
+    /**
+     * a car which is placed on this cell. <br/> null if there is no vehicle
+     */
     private Vehicle vehicle;
+
+    /**
+     * the lane which this cell belongs to
+     */
+    private Lane lane;
 
     private Cell nextCell;
     private Cell previousCell;
 
+    /**
+     * CO2 emission at this cell caused by passing vehicles
+     */
     private double co2Emission;
 
     // constructor
@@ -25,24 +41,24 @@ public class Cell implements Serializable {
         super();
         this.id = id;
         this.lane = lane;
-        co2Emission = 0.;
+        this.co2Emission = 0.;
     }
 
     // getter
     public Lane getLane() {
-        return lane;
+        return this.lane;
     }
 
     public Vehicle getVehicle() {
-        return vehicle;
+        return this.vehicle;
     }
 
     public Cell getNextCell() {
-        return nextCell;
+        return this.nextCell;
     }
 
     public Cell getPreviousCell() {
-        return previousCell;
+        return this.previousCell;
     }
 
     public double getCo2Emission() {
@@ -50,7 +66,7 @@ public class Cell implements Serializable {
     }
 
     public double getSize() {
-        return size;
+        return this.size;
     }
 
     // setter
@@ -66,16 +82,22 @@ public class Cell implements Serializable {
         this.previousCell = previousCell;
     }
 
+    // methods
+
+    /**
+     * reverses the next and previous cell. used to invert a lane.
+     */
+    protected void flip() {
+        Cell temp = this.nextCell;
+        this.nextCell = this.previousCell;
+        this.previousCell = temp;
+    }
+
+    /**
+     * increases the co2 emission of this cell by a given value
+     * @param consumptionPerCell co2 emission value to be added
+     */
     public void increaseCo2Emission(double consumptionPerCell) {
         this.co2Emission += consumptionPerCell;
     }
-
-    // methods
-    protected void flip() {
-        Cell temp = nextCell;
-        nextCell = previousCell;
-        previousCell = temp;
-    }
-
-
 }

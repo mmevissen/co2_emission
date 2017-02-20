@@ -1,131 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane prefHeight="605.0" prefWidth="1112.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.Controller">
+
+<AnchorPane prefHeight="605.0" prefWidth="1112.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
     <children>
-        <VBox layoutX="3.0" layoutY="4.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-              AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0"
-              AnchorPane.topAnchor="3.0">
+        <VBox layoutX="3.0" layoutY="4.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
             <children>
                 <TitledPane text="Simulation Parameters">
                     <content>
                         <GridPane hgap="10.0" prefHeight="302.0" prefWidth="1107.0" vgap="10.0">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="494.0" minWidth="10.0"
-                                                   prefWidth="196.0"/>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="586.0" minWidth="10.0"
-                                                   prefWidth="198.0"/>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="697.0" minWidth="10.0"
-                                                   prefWidth="692.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="494.0" minWidth="10.0" prefWidth="196.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="586.0" minWidth="10.0" prefWidth="198.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="697.0" minWidth="10.0" prefWidth="692.0" />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints minHeight="0.0" vgrow="NEVER"/>
-                                <RowConstraints maxHeight="222.0" minHeight="0.0" prefHeight="179.0" vgrow="NEVER"/>
-                                <RowConstraints minHeight="0.0" vgrow="NEVER"/>
+                                <RowConstraints minHeight="0.0" vgrow="NEVER" />
+                                <RowConstraints maxHeight="222.0" minHeight="0.0" prefHeight="179.0" vgrow="NEVER" />
+                                <RowConstraints minHeight="0.0" vgrow="NEVER" />
                             </rowConstraints>
                             <children>
-                                <GridPane hgap="5.0" prefHeight="102.0" prefWidth="196.0" vgap="5.0"
-                                          GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
+                                <GridPane hgap="5.0" prefHeight="102.0" prefWidth="196.0" vgap="5.0" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
                                     <columnConstraints>
-                                        <ColumnConstraints maxWidth="265.0" minWidth="10.0" prefWidth="131.0"/>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="349.0" minWidth="10.0"
-                                                           prefWidth="60.0"/>
+                                        <ColumnConstraints maxWidth="265.0" minWidth="10.0" prefWidth="131.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="349.0" minWidth="10.0" prefWidth="60.0" />
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0"
-                                                        vgrow="NEVER"/>
-                                        <RowConstraints fillHeight="false" minHeight="10.0" vgrow="NEVER"/>
-                                        <RowConstraints fillHeight="false" minHeight="10.0" vgrow="NEVER"/>
-                                        <RowConstraints fillHeight="false" minHeight="10.0" vgrow="NEVER"/>
-                                        <RowConstraints fillHeight="false" minHeight="10.0" vgrow="NEVER"/>
-                                        <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0"
-                                                        vgrow="NEVER"/>
-                                        <RowConstraints fillHeight="false" vgrow="NEVER"/>
-                                        <RowConstraints fillHeight="false" vgrow="NEVER"/>
+                                        <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints fillHeight="false" minHeight="10.0" vgrow="NEVER" />
+                                        <RowConstraints fillHeight="false" minHeight="10.0" vgrow="NEVER" />
+                                        <RowConstraints fillHeight="false" minHeight="10.0" vgrow="NEVER" />
+                                        <RowConstraints fillHeight="false" minHeight="10.0" vgrow="NEVER" />
+                                        <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints fillHeight="false" vgrow="NEVER" />
+                                        <RowConstraints fillHeight="false" vgrow="NEVER" />
                                     </rowConstraints>
                                     <children>
-                                        <TextField fx:id="numberOfCellsTextField" promptText="134" text="134"
-                                                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                        <Label text="Number of Cells" GridPane.rowIndex="2"/>
-                                        <Label text="max. Vehicles:" GridPane.rowIndex="3"/>
-                                        <TextField fx:id="maxVehicleTextField" disable="true" promptText="-1" text="-1"
-                                                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                                        <Label text="Simulation Time [s]: " GridPane.rowIndex="1"/>
-                                        <TextField fx:id="simulationTimeTextField" promptText="10800" text="500"
-                                                   GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                        <Label text="Simulation Runs: "/>
-                                        <TextField fx:id="simulationRunsTextField" text="5" GridPane.columnIndex="1"/>
-                                        <Label text="Trafficlight Interval [s]:" GridPane.rowIndex="4"/>
-                                        <TextField fx:id="trafficLightIntervalTextField" promptText="30" text="30"
-                                                   GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                                        <TextField fx:id="numberOfCellsTextField" promptText="134" text="134" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label text="Number of Cells" GridPane.rowIndex="2" />
+                                        <Label text="max. Vehicles:" GridPane.rowIndex="3" />
+                                        <TextField fx:id="maxVehicleTextField" disable="true" promptText="-1" text="-1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <Label text="Simulation Time [s]: " GridPane.rowIndex="1" />
+                                        <TextField fx:id="simulationTimeTextField" promptText="10800" text="1000" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Label text="Simulation Runs: " />
+                                        <TextField fx:id="simulationRunsTextField" text="1" GridPane.columnIndex="1" />
+                                        <Label text="Trafficlight Interval [s]:" GridPane.rowIndex="4" />
+                                        <TextField fx:id="trafficLightIntervalTextField" promptText="30" text="30" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                     </children>
                                 </GridPane>
-                                <GridPane hgap="5.0" vgap="5.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER"
-                                          GridPane.rowIndex="1" GridPane.vgrow="NEVER">
+                                <GridPane hgap="5.0" vgap="5.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
                                     <children>
-                                        <TextField fx:id="vehicleProbabilityTextField" promptText="0.5" text="0.5"
-                                                   GridPane.columnIndex="1"/>
-                                        <TextField fx:id="gasolineProbabilityTextField" promptText="0.614" text="0.614"
-                                                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                        <Label text="Vehicle (general):"/>
-                                        <Label text="Vehicle (Gasoline):" GridPane.rowIndex="2"/>
-                                        <Label text="Vehicle (Diesel):" GridPane.rowIndex="3"/>
-                                        <Label text="Vehicle (LPG):" GridPane.rowIndex="4"/>
-                                        <Label text="Vehicle (CNG):" GridPane.rowIndex="6"/>
-                                        <TextField fx:id="dieselProbabilityTextField" promptText="0.273" text="0.273"
-                                                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                                        <TextField fx:id="lpgProbabilityTextField" promptText="0.061" text="0.061"
-                                                   GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                                        <TextField fx:id="cngProbabilityTextField" promptText="0.052" text="0.052"
-                                                   GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                                        <Label text="Sum = 1" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                                        <TextField fx:id="vehicleProbabilityTextField" promptText="0.5" text="0.2" GridPane.columnIndex="1" />
+                                        <TextField fx:id="gasolineProbabilityTextField" promptText="0.614" text="0.614" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label text="Vehicle (general):" />
+                                        <Label text="Vehicle (Gasoline):" GridPane.rowIndex="2" />
+                                        <Label text="Vehicle (Diesel):" GridPane.rowIndex="3" />
+                                        <Label text="Vehicle (LPG):" GridPane.rowIndex="4" />
+                                        <Label text="Vehicle (CNG):" GridPane.rowIndex="6" />
+                                        <TextField fx:id="dieselProbabilityTextField" promptText="0.273" text="0.273" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <TextField fx:id="lpgProbabilityTextField" promptText="0.061" text="0.061" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <TextField fx:id="cngProbabilityTextField" promptText="0.052" text="0.052" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                        <Label text="Sum = 1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                     </children>
                                     <columnConstraints>
-                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="265.0"
-                                                           minWidth="10.0" prefWidth="130.0"/>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="349.0" minWidth="10.0"
-                                                           prefWidth="66.0"/>
+                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="265.0" minWidth="10.0" prefWidth="130.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="349.0" minWidth="10.0" prefWidth="66.0" />
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints minHeight="10.0" vgrow="NEVER"/>
-                                        <RowConstraints maxHeight="19.0" minHeight="10.0" prefHeight="14.0"
-                                                        vgrow="NEVER"/>
-                                        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0"
-                                                        vgrow="NEVER"/>
-                                        <RowConstraints minHeight="10.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="0.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="0.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="0.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                                        <RowConstraints minHeight="10.0" vgrow="NEVER" />
+                                        <RowConstraints maxHeight="19.0" minHeight="10.0" prefHeight="14.0" vgrow="NEVER" />
+                                        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="10.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="0.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="0.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="0.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                                     </rowConstraints>
                                 </GridPane>
-                                <Label text="Generation Probabilities [0.0 - 1.0]:" GridPane.columnIndex="1"/>
+                                <Label text="Generation Probabilities [0.0 - 1.0]:" GridPane.columnIndex="1" />
                                 <VBox spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                     <children>
-                                        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="3.0"
-                                              GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="3.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                             <children>
-                                                <Button fx:id="chooseFolderButton" mnemonicParsing="false"
-                                                        onAction="#chooseFolderButtonPressed" text="Choose Folder"/>
-                                                <Label maxWidth="1.7976931348623157E308" text="Path:"
-                                                       textAlignment="CENTER"/>
-                                                <TextField fx:id="pathTextFiled" disable="true"
-                                                           promptText="Choose a folder path to save the results of each model.simulation run"
-                                                           HBox.hgrow="ALWAYS"/>
-                                                <Button fx:id="clearPathButton" mnemonicParsing="false"
-                                                        onAction="#clearPathButtonPressed" text="Clear"
-                                                        BorderPane.alignment="CENTER"/>
+                                                <Button fx:id="chooseFolderButton" mnemonicParsing="false" onAction="#chooseFolderButtonPressed" text="Choose Folder" />
+                                                <Label maxWidth="1.7976931348623157E308" text="Path:" textAlignment="CENTER" />
+                                                <TextField fx:id="pathTextFiled" disable="true" promptText="Choose a folder path to save the results of each model.simulation run" HBox.hgrow="ALWAYS" />
+                                                <Button fx:id="clearPathButton" mnemonicParsing="false" onAction="#clearPathButtonPressed" text="Clear" BorderPane.alignment="CENTER" />
                                             </children>
                                             <padding>
-                                                <Insets top="3.0"/>
+                                                <Insets top="3.0" />
                                             </padding>
                                         </HBox>
-                                        <Button fx:id="simulateButton" maxHeight="1.7976931348623157E308"
-                                                maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                                                onAction="#simulateButtonPressed" text="Simulate"/>
+                                        <Button fx:id="simulateButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#simulateButtonPressed" text="Simulate" />
                                     </children>
                                 </VBox>
                             </children>
@@ -140,122 +110,84 @@
                                     <center>
                                         <HBox spacing="2.0">
                                             <children>
-                                                <Slider fx:id="simulationStepSlider" blockIncrement="1.0" cache="true"
-                                                        maxWidth="1.7976931348623157E308" minorTickCount="5"
-                                                        onMouseClicked="#simulationStepSliderChanged"
-                                                        showTickLabels="true" showTickMarks="true" HBox.hgrow="ALWAYS">
+                                                <Slider fx:id="simulationStepSlider" blockIncrement="1.0" cache="true" maxWidth="1.7976931348623157E308" minorTickCount="5" onMouseClicked="#simulationStepSliderChanged" showTickLabels="true" showTickMarks="true" HBox.hgrow="ALWAYS">
                                                     <padding>
-                                                        <Insets right="5.0"/>
+                                                        <Insets right="5.0" />
                                                     </padding>
                                                 </Slider>
-                                                <Button fx:id="previousStepButton" mnemonicParsing="false"
-                                                        onAction="#onStepButtonPressed" text="&lt;"/>
-                                                <Button fx:id="nextStepButton" mnemonicParsing="false"
-                                                        onAction="#onStepButtonPressed" text="&gt;"/>
+                                                <Button fx:id="previousStepButton" mnemonicParsing="false" onAction="#onStepButtonPressed" text="&lt;" />
+                                                <Button fx:id="nextStepButton" mnemonicParsing="false" onAction="#onStepButtonPressed" text="&gt;" />
                                             </children>
                                         </HBox>
                                     </center>
                                     <VBox.margin>
-                                        <Insets/>
+                                        <Insets />
                                     </VBox.margin>
                                 </BorderPane>
-                                <ScrollPane layoutX="3.0" layoutY="55.0" maxHeight="1.7976931348623157E308"
-                                            maxWidth="1.7976931348623157E308" prefViewportWidth="644.0"
-                                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                            AnchorPane.rightAnchor="0.0">
+                                <ScrollPane layoutX="3.0" layoutY="55.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefViewportWidth="644.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                     <content>
-                                        <Pane fx:id="simulationVisualizationPane"/>
+                                        <Pane fx:id="simulationVisualizationPane" />
                                     </content>
                                 </ScrollPane>
                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                     <children>
                                         <VBox prefHeight="200.0" prefWidth="100.0">
                                             <children>
-                                                <Label text="General"/>
+                                                <Label text="General" />
                                                 <GridPane>
                                                     <columnConstraints>
-                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-                                                                           prefWidth="100.0"/>
-                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-                                                                           prefWidth="100.0"/>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                                                        vgrow="SOMETIMES"/>
-                                                        <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                                                        vgrow="SOMETIMES"/>
-                                                        <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                                                        vgrow="SOMETIMES"/>
-                                                        <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                                                        vgrow="SOMETIMES"/>
-                                                        <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                                                        vgrow="SOMETIMES"/>
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label text="Vehicles:"/>
-                                                        <Label text="Gasoline:" GridPane.rowIndex="1"/>
-                                                        <Label text="Diesel:" GridPane.rowIndex="2"/>
-                                                        <Label text="LPG:" GridPane.rowIndex="3"/>
-                                                        <Label text="CNG:" GridPane.rowIndex="4"/>
-                                                        <Label fx:id="generalNumberOfVehiclesLabel"
-                                                               GridPane.columnIndex="1"/>
-                                                        <Label fx:id="generalNumberOfVehiclesGasolineLabel"
-                                                               GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                                        <Label fx:id="generalNumberOfVehiclesDieselLabel"
-                                                               GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                                        <Label fx:id="generalNumberOfVehiclesLPGLabel"
-                                                               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                                                        <Label fx:id="generalNumberOfVehiclesCNGLabel"
-                                                               GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                                                        <Label text="Gasoline:" />
+                                                        <Label text="Diesel:" GridPane.rowIndex="1" />
+                                                        <Label text="LPG:" GridPane.rowIndex="2" />
+                                                        <Label text="CNG:" GridPane.rowIndex="3" />
+                                                        <Label fx:id="generalNumberOfVehiclesGasolineLabel" GridPane.columnIndex="1" />
+                                                        <Label fx:id="generalNumberOfVehiclesDieselLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                        <Label fx:id="generalNumberOfVehiclesLPGLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                        <Label fx:id="generalNumberOfVehiclesCNGLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                                     </children>
                                                 </GridPane>
                                             </children>
                                         </VBox>
                                         <VBox prefHeight="200.0" prefWidth="100.0">
                                             <children>
-                                                <Label text="Current Step"/>
+                                                <Label text="Current Step" />
                                                 <GridPane>
                                                     <children>
-                                                        <Label text="Vehicles:"/>
-                                                        <Label text="Gasoline:" GridPane.rowIndex="1"/>
-                                                        <Label text="Diesel:" GridPane.rowIndex="2"/>
-                                                        <Label text="LPG:" GridPane.rowIndex="3"/>
-                                                        <Label text="CNG:" GridPane.rowIndex="4"/>
-                                                        <Label fx:id="stepNumberOfVehiclesLabel"
-                                                               GridPane.columnIndex="1"/>
-                                                        <Label fx:id="stepNumberOfVehiclesGasolineLabel"
-                                                               GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                                        <Label fx:id="stepNumberOfVehiclesDieselLabel"
-                                                               GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                                        <Label fx:id="stepNumberOfVehiclesLPGLabel"
-                                                               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                                                        <Label fx:id="stepNumberOfVehiclesCNGLabel"
-                                                               GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                                                        <Label text="Gasoline:" />
+                                                        <Label text="Diesel:" GridPane.rowIndex="1" />
+                                                        <Label text="LPG:" GridPane.rowIndex="2" />
+                                                        <Label text="CNG:" GridPane.rowIndex="3" />
+                                                        <Label fx:id="stepNumberOfVehiclesGasolineLabel" GridPane.columnIndex="1" />
+                                                        <Label fx:id="stepNumberOfVehiclesDieselLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                        <Label fx:id="stepNumberOfVehiclesLPGLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                        <Label fx:id="stepNumberOfVehiclesCNGLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                                     </children>
                                                     <columnConstraints>
-                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-                                                                           prefWidth="100.0"/>
-                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-                                                                           prefWidth="100.0"/>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                                                        vgrow="SOMETIMES"/>
-                                                        <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                                                        vgrow="SOMETIMES"/>
-                                                        <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                                                        vgrow="SOMETIMES"/>
-                                                        <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                                                        vgrow="SOMETIMES"/>
-                                                        <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                                                        vgrow="SOMETIMES"/>
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                 </GridPane>
                                             </children>
                                         </VBox>
                                     </children>
                                     <padding>
-                                        <Insets top="10.0"/>
+                                        <Insets top="10.0" />
                                     </padding>
                                 </HBox>
                             </children>

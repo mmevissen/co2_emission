@@ -3,6 +3,11 @@ package model.agents;
 import model.environment.Edge;
 import model.environment.Node;
 
+
+/**
+ * regulates the traffic flow. this implementation rotates through its known edges and sets only one "GoEdge" at a time <br/>
+ * "GoEdge" = the edge from which vehicles are allowed to cross the junction node
+ */
 public class TrafficLight extends Node implements Agent {
 
     private long interval;
@@ -22,10 +27,13 @@ public class TrafficLight extends Node implements Agent {
         return goEdge;
     }
 
+    /**
+     * not used
+     * @return
+     */
     @Override
     public boolean update() {
-        // System.out.println("TrafficLight index: " + this.goEdge.getName());
-        return false;
+        return true;
     }
 
     @Override

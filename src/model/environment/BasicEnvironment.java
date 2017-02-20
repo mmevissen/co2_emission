@@ -10,6 +10,10 @@ public class BasicEnvironment {
     private ArrayList<Edge> edges;
     private ArrayList<Agent> agents;
 
+
+    /**
+    Creates a basic environment of a simple junction with 4 entry {@link Edge}s
+     */
     public BasicEnvironment(int numberOfCells, int trafficLightInterval, int numberOfLanes) {
         agents = new ArrayList<>();
         initialize(numberOfCells, trafficLightInterval, numberOfLanes);
@@ -20,7 +24,6 @@ public class BasicEnvironment {
         Node node2 = new Node();
         Node node3 = new Node();
         Node node4 = new Node();
-
         // junction node
         Node node5 = new TrafficLight(trafficLightInterval);
         this.agents.add((Agent) node5);

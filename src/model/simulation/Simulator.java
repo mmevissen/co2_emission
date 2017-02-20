@@ -10,17 +10,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Performs multiple {@link Simulation}s and saves the results as CSV files (if configured)
+ */
 public final class Simulator {
 
+    // variables
     private SimulationParameters parameters;
     private BasicEnvironment environment;
 
     private HashMap<FuelType, Integer> generalNumbers;
 
+    // constructor
     public Simulator(SimulationParameters parameters) {
         this.parameters = parameters;
     }
 
+    // methods
     public List<SimulationStep> startSimulation() throws IOException {
 
         List<SimulationStep> resultsForToExport = new ArrayList<>();

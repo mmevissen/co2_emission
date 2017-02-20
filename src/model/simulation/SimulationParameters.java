@@ -2,6 +2,10 @@ package model.simulation;
 
 import java.nio.file.Path;
 
+
+/**
+ * contains the simulation parameters which can be configured by the user through the GUI
+ */
 public class SimulationParameters {
 
     private int simulationRuns;

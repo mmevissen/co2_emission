@@ -13,9 +13,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
+/**
+ * main simulation class which cares for a single simulation with given {@link SimulationParameters}
+ */
 public final class Simulation {
+    /**
+     * current simulation time(step)
+     */
     private static long currentTime;
+
+    /**
+     * max. simulation time
+     */
     private static long endTime;
+
     private static SimulationParameters simulationParameters = null;
     private static VehicleBuilder builder;
 
@@ -45,17 +57,19 @@ public final class Simulation {
         }
     }
 
+    /**
+     * main simulation method.
+     * @return a list of by time simulated steps. Each step contains the current state of a time step
+     * @throws IOException
+     */
     public static List<SimulationStep> startSimulation() throws IOException {
         List<SimulationStep> simulationSteps = new ArrayList<>();
         builder = new VehicleBuilder(getEdges(), -1, simulationParameters);
 
         for (int i = 0; i < endTime; i++) {
-            //  System.out.println("currentTime: " + i);
-
             calculate();
             update();
             agents.addAll(builder.generateVehicle());
-            // printEdges();
 
             agents.removeAll(expiredAgents);
             expiredAgents.clear();
@@ -129,6 +143,4 @@ public final class Simulation {
     public static HashMap<FuelType, Integer> getGeneratedVehicleNumbers() {
         return builder.getNumberOfGeneratedVehiclesByFuelType();
     }
-
-
 }
